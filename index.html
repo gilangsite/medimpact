@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Webinar - Literasi Finansial</title>
+    <!-- Assuming Garet is available locally or via external font face. Added fallback sans-serif -->
+    <style>
+        @font-face {
+            font-family: 'Garet';
+            src: local('Garet Regular');
+            font-weight: normal;
+        }
+
+        @font-face {
+            font-family: 'Garet';
+            src: local('Garet Bold');
+            font-weight: bold;
+        }
+
+        :root {
+            --primary-color: #1c6657;
+            /* Hijau Army Medimpact */
+            --bg-color: #f4f7f6;
+            --text-color: #333333;
+            --white: #ffffff;
+            --border-radius: 12px;
+            --input-border: #d1d9d6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Garet', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 5%;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar img {
+            height: 40px;
+            object-fit: contain;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 100px auto 40px;
+            background-color: var(--white);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        /* Poster */
+        .poster {
+            width: 100%;
+            display: block;
+        }
+
+        /* Content Area */
+        .content {
+            padding: 40px;
+        }
+
+        .event-title {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .event-details {
+            background-color: rgba(28, 102, 87, 0.05);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 30px;
+            border: 1px solid rgba(28, 102, 87, 0.1);
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 15px;
+        }
+
+        .detail-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .detail-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 15px;
+            fill: var(--primary-color);
+            flex-shrink: 0;
+        }
+
+        .price-strike {
+            text-decoration: line-through;
+            color: #888;
+            margin-right: 8px;
+        }
+
+        .price-free {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--input-border);
+            border-radius: var(--border-radius);
+            font-family: inherit;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            background-color: #fafafa;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(28, 102, 87, 0.1);
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231c6657' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .checkbox-group input {
+            margin-top: 4px;
+            margin-right: 12px;
+            accent-color: var(--primary-color);
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 13.5px;
+            color: #555;
+            cursor: pointer;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 16px;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: bold;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            box-shadow: 0 4px 12px rgba(28, 102, 87, 0.2);
+        }
+
+        .btn-submit:hover {
+            background-color: #154c41;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        .btn-submit:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Spinner Animation */
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            vertical-align: middle;
+            margin-right: 8px;
+            margin-top: -2px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-text {
+            font-size: 13px;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .footer img {
+            height: 35px;
+            object-fit: contain;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer img:hover {
+            opacity: 1;
+        }
+
+        #loadingMessage,
+        #successMessage {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-top: 20px;
+        }
+
+        #loadingMessage {
+            background-color: #e8f4f1;
+            color: var(--primary-color);
+        }
+
+        #successMessage {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding: 25px;
+            }
+
+            .container {
+                margin: 80px 15px 30px;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <img src="Logo-MedImpact.png" alt="Medimpact Logo">
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Poster -->
+        <img src="POSTER-WEBINAR.png" alt="Poster Webinar" class="poster">
+
+        <!-- Content -->
+        <div class="content">
+            <h1 class="event-title">Literasi Finansial untuk Calon Dokter:<br>Peta Jalan Menuju PPDS</h1>
+
+            <!-- Event Details -->
+            <div class="event-details">
+                <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5h5v5h-5z" />
+                    </svg>
+                    <span><strong>Tanggal:</strong> 14 Maret 2026</span>
+                </div>
+                <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+                    </svg>
+                    <span><strong>Waktu:</strong> 11.00 WIB - Selesai</span>
+                </div>
+                <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                    </svg>
+                    <span><strong>Narasumber:</strong> dr. Stellon Salim, MKK, AIFO-K</span>
+                </div>
+                <div class="detail-item">
+                    <svg class="detail-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
+                    </svg>
+                    <span><strong>Harga:</strong> <span class="price-strike">Rp. 500.000</span> <span
+                            class="price-free">GRATIS !</span></span>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label class="form-label" for="nama">Nama Lengkap</label>
+                    <input type="text" id="nama" name="nama" class="form-control" required
+                        placeholder="Masukkan nama lengkap Anda beserta gelar (opsional)">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Aktif</label>
+                    <input type="email" id="email" name="email" class="form-control" required
+                        placeholder="Masukkan email yang valid untuk pengiriman tiket">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="whatsapp">Nomor WhatsApp</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" class="form-control" required
+                        placeholder="Contoh: 081234567890">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="domisili">Domisili</label>
+                    <input type="text" id="domisili" name="domisili" class="form-control" required
+                        placeholder="Kota tempat tinggal saat ini">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="status">Pilih Status</label>
+                    <select id="status" name="status" class="form-control" required>
+                        <option value="" disabled selected>-- Pilih Status Anda --</option>
+                        <option value="Mahasiswa FK">Mahasiswa FK</option>
+                        <option value="Mahasiswa Non FK">Mahasiswa Non FK</option>
+                        <option value="Dokter Muda (Koas)">Dokter Muda (Koas)</option>
+                        <option value="Dokter Umum">Dokter Umum</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="informasi">Mengetahui Informasi Dari</label>
+                    <select id="informasi" name="informasi" class="form-control" required>
+                        <option value="" disabled selected>-- Pilih Sumber Informasi --</option>
+                        <option value="Sosial Media Medimpact">Sosial Media Medimpact</option>
+                        <option value="WA Community Medimpact">WA Community Medimpact</option>
+                        <option value="Ajakan Teman">Ajakan Teman</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="consent" name="consent" required>
+                    <label for="consent" class="checkbox-label">Saya menyatakan data yang saya lengkapi diatas adalah
+                        benar dan bersedia untuk disimpan oleh tim medimpact.</label>
+                </div>
+
+                <button type="submit" id="submitBtn" class="btn-submit">Daftar Webinar</button>
+
+                <div id="loadingMessage">
+                    <svg style="vertical-align: middle; margin-right: 6px; fill: var(--primary-color);" width="20"
+                        height="20" viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+                    </svg>
+                    Mengirim data pendaftaran Anda... Mohon tunggu.
+                </div>
+                <div id="successMessage">
+                    <svg style="vertical-align: middle; margin-right: 6px; fill: #155724;" width="20" height="20"
+                        viewBox="0 0 24 24">
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                    </svg>
+                    Pendaftaran berhasil! Silakan periksa email Anda (termasuk folder Spam/Promosi) untuk informasi
+                    lebih lanjut.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <span class="footer-text">Powered by:</span>
+        <img src="Logo Medimpact-medtools.png" alt="Powered by Medimpact Medtools">
+    </div>
+
+    <script>
+        // Replace with your actual Google Apps Script Web App URL after deploying Code.gs
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbxwjc3OpkSJC1RgMdB_knrdraGzNOCc_tR8ER-28Du6YR5CfAJgK4QsDTUcwj1YjW-Q/exec';
+        const form = document.querySelector('#registrationForm');
+        const submitBtn = document.querySelector('#submitBtn');
+        const loadingMessage = document.querySelector('#loadingMessage');
+        const successMessage = document.querySelector('#successMessage');
+
+        form.addEventListener('submit', e => {
+            e.preventDefault();
+
+            // Disable button and show loading spinner
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner"></span>Memproses...';
+            loadingMessage.style.display = 'block';
+            successMessage.style.display = 'none';
+
+            let requestBody = new FormData(form);
+
+            fetch(scriptURL, { method: 'POST', body: requestBody })
+                .then(response => {
+                    loadingMessage.style.display = 'none';
+                    successMessage.style.display = 'block';
+                    form.reset();
+                    submitBtn.textContent = 'Daftar Webinar';
+                    // Optional: keep button disabled to prevent duplicate submissions
+                    // submitBtn.disabled = false; 
+                })
+                .catch(error => {
+                    loadingMessage.style.display = 'none';
+                    alert('Terjadi kesalahan saat mendaftar. Silakan coba lagi nanti.');
+                    console.error('Error!', error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Daftar Webinar';
+                });
+        });
+    </script>
+</body>
+
+</html>
