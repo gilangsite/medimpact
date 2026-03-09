@@ -17,18 +17,6 @@
     <meta property="og:type" content="website">
     <!-- Assuming Garet is available locally or via external font face. Added fallback sans-serif -->
     <style>
-        @font-face {
-            font-family: 'Garet';
-            src: local('Garet Regular');
-            font-weight: normal;
-        }
-
-        @font-face {
-            font-family: 'Garet';
-            src: local('Garet Bold');
-            font-weight: bold;
-        }
-
         :root {
             --primary-color: #1c6657;
             /* Hijau Army Medimpact */
@@ -46,7 +34,7 @@
         }
 
         body {
-            font-family: 'Garet', sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
@@ -161,9 +149,14 @@
             border: 1px solid var(--input-border);
             border-radius: var(--border-radius);
             font-family: inherit;
-            font-size: 15px;
+            font-size: 16px;
+            /* Minimum 16px to prevent iOS auto-zoom */
             transition: all 0.3s ease;
             background-color: #fafafa;
+        }
+
+        input[type="email"] {
+            text-transform: lowercase;
         }
 
         .form-control:focus {
@@ -379,13 +372,14 @@
                 <div class="form-group">
                     <label class="form-label" for="email">Email Aktif</label>
                     <input type="email" id="email" name="email" class="form-control" required
-                        placeholder="Masukkan email yang valid untuk pengiriman tiket">
+                        placeholder="Masukkan email yang valid untuk pengiriman tiket"
+                        oninput="this.value = this.value.toLowerCase()">
                 </div>
 
                 <div class="form-group">
                     <label class="form-label" for="whatsapp">Nomor WhatsApp</label>
                     <input type="tel" id="whatsapp" name="whatsapp" class="form-control" required
-                        placeholder="Contoh: 081234567890">
+                        placeholder="Contoh: 081234567890" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                 </div>
 
                 <div class="form-group">
