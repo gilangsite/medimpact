@@ -30,56 +30,207 @@ function doPost(e) {
 }
 
 function sendConfirmationEmail(userName, userEmail) {
-  var subject = "Konfirmasi Pendaftaran Berhasil: " + EVENT_NAME;
-  
-  // Define Logo URL. 
-  // It's recommended to host the logo online and use its direct URL in the email template.
-  var logoUrl = "https://raw.githubusercontent.com/username/repo/main/Logo-MedImpact.png"; // Replace with actual hosted logo URL if needed, or use text header
+  var subject = "Konfirmasi Pendaftaran Berhasil: Literasi Finansial";
   
   var htmlBody = `
-    <div style="font-family: 'Arial', sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 10px; overflow: hidden;">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Konfirmasi Pendaftaran</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+    body {
+      font-family: 'Garet', 'Montserrat', Arial, sans-serif;
+      background-color: #f4f7f6;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+    .email-wrapper {
+      width: 100%;
+      background-color: #f4f7f6;
+      padding: 40px 0;
+    }
+    .email-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+    .header {
+      background-color: #1c6657;
+      padding: 30px;
+      text-align: center;
+    }
+    .header img {
+      max-height: 50px;
+      display: inline-block;
+    }
+    .poster-container {
+      width: 100%;
+      background-color: #ffffff;
+    }
+    .poster-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .content {
+      padding: 40px;
+      color: #333333;
+      line-height: 1.6;
+      text-align: justify;
+    }
+    .headline {
+      color: #1c6657;
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 0;
+      margin-bottom: 25px;
+    }
+    .greeting {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    .event-details {
+      background-color: rgba(28, 102, 87, 0.05);
+      border-radius: 12px;
+      margin: 30px 0;
+      border: 1px solid rgba(28, 102, 87, 0.1);
+      width: 100%;
+    }
+    .event-details td {
+      padding: 12px 20px;
+      font-size: 15px;
+      text-align: left;
+    }
+    .event-details tr:not(:last-child) td {
+      border-bottom: 1px solid rgba(28, 102, 87, 0.1);
+    }
+    .detail-label {
+      color: #1c6657;
+      font-weight: bold;
+      width: 100px;
+    }
+    .info-box {
+      background-color: #e8f4f1;
+      padding: 15px 20px;
+      border-left: 4px solid #1c6657;
+      border-radius: 0 8px 8px 0;
+      margin: 25px 0;
+      color: #1c6657;
+      font-size: 14.5px;
+      text-align: left;
+    }
+    .footer {
+      text-align: center;
+      padding: 30px;
+      background-color: #f9f9f9;
+      border-top: 1px solid #eeeeee;
+    }
+    .footer-text {
+      font-size: 13px;
+      color: #777777;
+      margin-bottom: 12px;
+      display: block;
+    }
+    .footer img {
+      height: 35px;
+      object-fit: contain;
+    }
+    @media only screen and (max-width: 600px) {
+      .content {
+        padding: 25px;
+      }
+      .email-wrapper {
+        padding: 20px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="email-wrapper">
+    <!--[if (gte mso 9)|(IE)]>
+    <table align="center" border="0" cellspacing="0" cellpadding="0" width="600">
+    <tr>
+    <td align="center" valign="top" width="600">
+    <![endif]-->
+    <div class="email-container">
       
       <!-- Header -->
-      <div style="background-color: #f4f7f6; padding: 20px; text-align: center; border-bottom: 2px solid #1c6657;">
-        <!-- <img src="${logoUrl}" alt="Medimpact Logo" style="height: 50px;"> -->
-        <h2 style="color: #1c6657; margin: 10px 0 0 0;">Medimpact</h2>
+      <div class="header">
+        <img src="https://drive.google.com/uc?export=view&id=1hKg0Yc6fiGFhrQaYOrotuJMfMkcOxIlC" alt="Medimpact Logo">
+      </div>
+
+      <!-- Poster -->
+      <div class="poster-container">
+        <img src="https://drive.google.com/uc?export=view&id=1GPkRcZhIqSND8pwJQVpzp07fGDPH4Yha" alt="Poster Webinar">
       </div>
       
       <!-- Content -->
-      <div style="padding: 30px; color: #333333; line-height: 1.6;">
-        <p style="font-size: 16px;">Hai, <strong>${userName}</strong>!</p>
+      <div class="content">
+        <h1 class="headline">Konfirmasi Pendaftaran</h1>
         
-        <p>Terimakasih sudah mendaftar untuk menghadiri event <strong>${EVENT_NAME}</strong>.</p>
-        
-        <p>Saat ini data kamu sudah masuk dan tersimpan dengan aman oleh tim Medimpact. Kami sangat antusias menyambut kehadiranmu dalam webinar ini, yang akan membahas wawasan penting seputar literasi finansial khusus untuk calon dokter.</p>
-        
-        <div style="background-color: rgba(28, 102, 87, 0.05); padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #1c6657;">
-          <h4 style="margin-top: 0; color: #1c6657;">Detail Pelaksanaan:</h4>
-          <ul style="padding-left: 20px; margin-bottom: 0;">
-            <li><strong>Tanggal:</strong> 14 Maret 2026</li>
-            <li><strong>Waktu:</strong> 11.00 WIB - Selesai</li>
-          </ul>
+        <div class="greeting">
+          Halo, <strong>${userName}</strong>!
         </div>
         
-        <p><strong>Langkah Selanjutnya:</strong><br>
-        Tim Medimpact akan secara otomatis mengirimkan link akses Zoom/Platform beserta instruksi lebih lanjut melalui email secara terpisah paling lambat H-1 sebelum webinar dimulai.</p>
+        <p>Terima kasih telah mendaftar untuk menghadiri acara bersama kami. Data pendaftaran Anda telah berhasil kami terima dan tersimpan dengan aman di sistem Medimpact.</p>
         
-        <p>Jika ada pertanyaan atau kendala, jangan ragu untuk membalas email ini.</p>
+        <p>Kami sangat antusias menyambut kehadiran Anda dalam webinar ini, yang dirancang khusus untuk memberikan wawasan penting seputar literasi finansial sebagai bekal bagi calon dokter.</p>
         
-        <p style="margin-top: 30px;">
+        <!-- Details Box -->
+        <table class="event-details" cellpadding="0" cellspacing="0">
+          <tr>
+            <td class="detail-label">Webinar</td>
+            <td>Literasi Finansial : Peta Menuju PPDS</td>
+          </tr>
+          <tr>
+            <td class="detail-label">Speaker</td>
+            <td>dr. Stellon Salim, MKK, AIFO-K</td>
+          </tr>
+          <tr>
+            <td class="detail-label">Tanggal</td>
+            <td>14 Maret 2026</td>
+          </tr>
+          <tr>
+            <td class="detail-label">Waktu</td>
+            <td>10.00 WIB - Selesai</td>
+          </tr>
+        </table>
+        
+        <div class="info-box">
+          <strong>Perhatian:</strong> Link akses webinar (Zoom/Platform) beserta instruksi lebih lanjut akan dibagikan ke email ini paling lambat H-1 sebelum event digelar.
+        </div>
+        
+        <p>Apabila Anda memiliki pertanyaan lebih lanjut atau mengalami kendala, silakan membalas email ini secara langsung.</p>
+        
+        <p style="margin-top: 40px; text-align: left;">
           Salam hangat,<br><br>
-          <strong>Gilang</strong><br>
-          <em>Medimpact Community Leader</em>
+          <strong style="color: #1c6657;">Tim Medimpact</strong>
         </p>
       </div>
       
       <!-- Footer -->
-      <div style="background-color: #1c6657; color: #ffffff; padding: 15px; text-align: center; font-size: 12px;">
-        <p style="margin: 0;">&copy; 2026 Medimpact. All rights reserved.</p>
-        <p style="margin: 5px 0 0 0;">Literasi Finansial, untuk Calon Dokter, Peta jalan menuju PPDS</p>
+      <div class="footer">
+        <span class="footer-text">Powered by :</span>
+        <img src="https://drive.google.com/uc?export=view&id=1iJr3mf3L2EX5rhrJqtDPPapvzDkAV9EF" alt="Logo Medimpact-medtools">
       </div>
       
     </div>
+    <!--[if (gte mso 9)|(IE)]>
+    </td>
+    </tr>
+    </table>
+    <![endif]-->
+  </div>
+</body>
+</html>
   `;
 
   try {
