@@ -6,21 +6,23 @@ function doPost(e) {
   var sheet = SpreadsheetApp.getActiveSheet();
   var timestamp = new Date();
   
-  // Extract form data
-  var nama = e.parameter.nama;
-  var email = e.parameter.email;
-  var wa = e.parameter.whatsapp;
-  var domisili = e.parameter.domisili;
-  var status = e.parameter.status;
-  var informasi = e.parameter.informasi;
-  var consent = e.parameter.consent;
+  // Extract form data, with fallback for empty or malformed requests
+  var nama = (e && e.parameter && e.parameter.nama) ? e.parameter.nama : "Tanpa Nama";
+  var email = (e && e.parameter && e.parameter.email) ? e.parameter.email : "";
+  var wa = (e && e.parameter && e.parameter.whatsapp) ? e.parameter.whatsapp : "";
+  var domisili = (e && e.parameter && e.parameter.domisili) ? e.parameter.domisili : "";
+  var status = (e && e.parameter && e.parameter.status) ? e.parameter.status : "";
+  var informasi = (e && e.parameter && e.parameter.informasi) ? e.parameter.informasi : "";
+  var consent = (e && e.parameter && e.parameter.consent) ? e.parameter.consent : "";
 
   // 1. Save to Google Sheets
   // Assume columns: Timestamp | Nama | Email | WhatsApp | Domisili | Status | Sumber Info | Consent
   sheet.appendRow([timestamp, nama, email, wa, domisili, status, informasi, consent]);
 
-  // 2. Send Confirmation Email to User
-  sendConfirmationEmail(nama, email);
+  // 2. Send Confirmation Email to User (only if email exists)
+  if (email && email !== "") {
+    sendConfirmationEmail(nama, email);
+  }
   
   // 3. Send Notification Email to Admin
   sendAdminNotification(nama, email, wa, status);
