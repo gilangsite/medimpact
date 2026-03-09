@@ -13,11 +13,12 @@ function doPost(e) {
   var domisili = (e && e.parameter && e.parameter.domisili) ? e.parameter.domisili : "";
   var status = (e && e.parameter && e.parameter.status) ? e.parameter.status : "";
   var informasi = (e && e.parameter && e.parameter.informasi) ? e.parameter.informasi : "";
+  var nama_teman = (e && e.parameter && e.parameter.nama_teman) ? e.parameter.nama_teman : "-";
   var consent = (e && e.parameter && e.parameter.consent) ? e.parameter.consent : "";
 
   // 1. Save to Google Sheets
-  // Assume columns: Timestamp | Nama | Email | WhatsApp | Domisili | Status | Sumber Info | Consent
-  sheet.appendRow([timestamp, nama, email, wa, domisili, status, informasi, consent]);
+  // Assume columns: Timestamp | Nama | Email | WhatsApp | Domisili | Status | Sumber Info | Nama Teman | Consent
+  sheet.appendRow([timestamp, nama, email, wa, domisili, status, informasi, nama_teman, consent]);
 
   // 2. Send Confirmation Email to User (only if email exists)
   if (email && email !== "") {
@@ -25,7 +26,7 @@ function doPost(e) {
   }
   
   // 3. Send Notification Email to Admin
-  sendAdminNotification(nama, email, wa, status);
+  sendAdminNotification(nama, email, wa, status, informasi, nama_teman);
 
   return ContentService.createTextOutput(JSON.stringify({ "result": "success" }))
     .setMimeType(ContentService.MimeType.JSON);
@@ -248,7 +249,7 @@ function sendConfirmationEmail(userName, userEmail) {
   }
 }
 
-function sendAdminNotification(nama, email, wa, status) {
+function sendAdminNotification(nama, email, wa, status, informasi, nama_teman) {
   var subject = "Pendaftar Baru: " + EVENT_NAME;
   var body = `
     Ada pendaftar baru untuk webinar!
@@ -257,6 +258,8 @@ function sendAdminNotification(nama, email, wa, status) {
     Email: ${email}
     WhatsApp: ${wa}
     Status: ${status}
+    Sumber Info: ${informasi}
+    Nama Teman Pengajak: ${nama_teman}
     
     Silakan cek Google Spreadsheet untuk detail lengkap.
   `;

@@ -401,12 +401,18 @@
 
                 <div class="form-group">
                     <label class="form-label" for="informasi">Mengetahui Informasi Dari</label>
-                    <select id="informasi" name="informasi" class="form-control" required>
+                    <select id="informasi" name="informasi" class="form-control" required onchange="toggleTemanInput()">
                         <option value="" disabled selected>-- Pilih Sumber Informasi --</option>
                         <option value="Sosial Media Medimpact">Sosial Media Medimpact</option>
                         <option value="WA Community Medimpact">WA Community Medimpact</option>
                         <option value="Ajakan Teman">Ajakan Teman</option>
                     </select>
+                </div>
+
+                <div id="temanContainer" class="form-group" style="display: none;">
+                    <label class="form-label" for="nama_teman">Nama Teman yang Mengajak</label>
+                    <input type="text" id="nama_teman" name="nama_teman" class="form-control"
+                        placeholder="Sebutkan nama teman Anda">
                 </div>
 
                 <div class="checkbox-group">
@@ -452,6 +458,21 @@
         const loadingMessage = document.querySelector('#loadingMessage');
         const successMessage = document.querySelector('#successMessage');
 
+        function toggleTemanInput() {
+            const informasi = document.getElementById('informasi');
+            const temanContainer = document.getElementById('temanContainer');
+            const namaTemanInput = document.getElementById('nama_teman');
+
+            if (informasi.value === 'Ajakan Teman') {
+                temanContainer.style.display = 'block';
+                namaTemanInput.required = true;
+            } else {
+                temanContainer.style.display = 'none';
+                namaTemanInput.required = false;
+                namaTemanInput.value = '';
+            }
+        }
+
         form.addEventListener('submit', e => {
             e.preventDefault();
 
@@ -468,6 +489,7 @@
                     loadingMessage.style.display = 'none';
                     successMessage.style.display = 'block';
                     form.reset();
+                    toggleTemanInput(); // Reset visibility
                     submitBtn.textContent = 'Daftar Webinar';
                     // Optional: keep button disabled to prevent duplicate submissions
                     // submitBtn.disabled = false; 
