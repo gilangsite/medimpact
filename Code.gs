@@ -237,6 +237,7 @@ function sendConfirmationEmail(userName, userEmail) {
     MailApp.sendEmail({
       to: userEmail,
       subject: subject,
+      body: "Pendaftaran Anda berhasil. Harap aktifkan HTML pada email client Anda untuk melihat detail pendaftaran.",
       htmlBody: htmlBody,
       name: "Medimpact Webinar"
     });
